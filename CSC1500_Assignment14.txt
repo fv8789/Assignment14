@@ -1,0 +1,136 @@
+libraryData = [] #dictionary stored in a list
+def add(): #function to add new book to database
+    q1 = int(input("Enter number of entries to add: ")) #input to allow multiple entries
+    i=0
+    while True:
+        library =  {'Book_Title':input("Enter Book Title: "), #dictionary for each book
+                     'Author':input("Enter Author: "),
+                     'ISBN':input("Enter ISBN: "),
+                     'Number_Copies':input("Enter number of copies purchased: "),
+                     'Number_not_Checked':input("Enter number of copies not checked oout: "),
+                     'Price':input("Enter retail price of book: ")}
+        print('\n')
+        for i1 in library: #check if book title is all letters
+            x = library['Book_Title'].replace(" ","")
+            if (x.isalpha()== False):
+                print("error must only be letters")
+                library.update(Book_Title = input("Enter Book Title: "))
+                print('\n')
+        for i2 in library: #Check if ISBN is int
+            try:
+                x = int(library.get('ISBN'))
+            except ValueError:
+                print("ISBN must be int",'\n')
+                library.update(ISBN = input("Enter ISBN: "))
+        for i3 in library: #Check if number of copies is int
+            try:
+                x = int(library.get('Number_Copies'))
+            except ValueError:
+                print("Copies must be int",'\n')
+                library.update(Number_Copies = input("Enter number of copies: "))
+        for i4 in library: #check of numbers of not checked is int
+            try:
+                x = int(library.get('Number_not_Checked'))
+            except ValueError:
+                print("Copies not checked must be int",'\n')
+                library.update(Number_not_Checked = input("Enter number of copies not checked: "))
+
+
+        libraryData.append(library)
+        i= i+1
+        if(i == (q1)):
+            break
+    print(libraryData)
+
+def Show(): #function to print books
+    print(libraryData) 
+
+def Remove(): #function to remove book
+    q1 = input("Enter Name of book to remove: ")
+    for i in range(len(libraryData)):
+        if libraryData[i]['Book_Title'] == q1:
+            q2 = input("Please confirm name of book: ")
+            if libraryData[i]['Book_Title'] == q2:
+                del libraryData[i]
+
+
+
+def Edit(): #function to edit book title
+    q1 = input("Enter name of book to edit: ")
+    for i in range(len(libraryData)):
+        if libraryData[i]['Book_Title'] == q1:
+            libraryData[i]['Book_Title'].append(q1)
+            
+            
+
+
+
+import tkinter as tk #tkinter to create gui
+
+def Main(): #function to create the main program screen with all the previous
+    home_root.destroy()#functions as individual buttons
+    windows = tk.Tk(className = 'Employee Database')
+    windows.geometry('600x700')
+
+    button1 = tk.Button(text = "Add",
+    fg = "blue",
+    bg = "yellow",
+    width = 25,
+    height = 5,
+    command = add)
+    button1.pack(pady=10)
+
+    button2 = tk.Button(text = "Show Books",
+    fg = "blue",
+    bg = "yellow",
+    width = 25,
+    height = 5,
+    command = Show)
+    button2.pack(pady=15)
+
+    button3 = tk.Button(text = "Remove Book",
+    fg = "blue",
+    bg = "yellow",
+    width = 25,
+    height = 5,
+    command = Remove)
+    button3.pack(pady=20)
+
+    button4 = tk.Button(text = "Edit Book",
+    fg = "blue",
+    bg = "yellow",
+    width = 25,
+    height = 5,
+    command = Edit)
+    button4.pack(pady=25)
+
+    button5 = tk.Button(windows,text = "Quit",
+    fg = "blue",
+    bg = "yellow",
+    width = 25,
+    height = 5,
+    command = windows.destroy)
+    button5.pack(pady=30)
+
+    windows.mainloop()
+
+    
+
+home_root = tk.Tk(className = 'Agreement') #splash screen 
+home_root.geometry("800x600")
+home_label = tk.Label(home_root, text = "Library Database", font=("Helvetica",12)) 
+home_label.pack(pady=10)
+
+
+button1 = tk.Button(text = "Continue",
+fg = "blue",
+bg = "yellow",
+width = 25,
+height = 5,
+command = Main)
+button1.pack(pady=40)
+
+
+
+       
+                
